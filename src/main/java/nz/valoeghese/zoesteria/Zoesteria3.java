@@ -1,7 +1,7 @@
 package nz.valoeghese.zoesteria;
 
 import net.fabricmc.api.ModInitializer;
-
+import net.minecraft.resources.ResourceLocation;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -10,6 +10,11 @@ public class Zoesteria3 implements ModInitializer {
 	// It is considered best practice to use your mod id as the logger's name.
 	// That way, it's clear which mod wrote info, warnings, and errors.
     public static final Logger LOGGER = LoggerFactory.getLogger("zoesteria-3");
+	public static final String MOD_ID = "zoesteria";
+
+	public static ResourceLocation location(String target) {
+		return new ResourceLocation(MOD_ID, target);
+	}
 
 	@Override
 	public void onInitialize() {

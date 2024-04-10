@@ -1,75 +1,104 @@
 package nz.valoeghese.zoesteria.common;
 
 import com.mojang.serialization.Codec;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.ChunkRegion;
-import net.minecraft.world.HeightLimitView;
-import net.minecraft.world.Heightmap;
-import net.minecraft.world.biome.source.BiomeAccess;
-import net.minecraft.world.biome.source.BiomeSource;
-import net.minecraft.world.chunk.Chunk;
-import net.minecraft.world.gen.GenerationStep;
-import net.minecraft.world.gen.StructureAccessor;
-import net.minecraft.world.gen.chunk.Blender;
-import net.minecraft.world.gen.chunk.ChunkGenerator;
-import net.minecraft.world.gen.chunk.VerticalBlockSample;
-import net.minecraft.world.gen.noise.NoiseConfig;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
+import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.level.*;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.BiomeManager;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.block.Blocks;
+import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.chunk.ChunkAccess;
+import net.minecraft.world.level.chunk.ChunkGenerator;
+import net.minecraft.world.level.levelgen.*;
+import net.minecraft.world.level.levelgen.blending.Blender;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.Executor;
 
 public class ZoesteriaChunkGenerator extends ChunkGenerator {
+	public static final Codec<ZoesteriaChunkGenerator> CODEC = RecordCodecBuilder.create(
+			instance -> instance.group(
+							BiomeSource.CODEC.fieldOf("biome_source").forGetter(generator -> generator.biomeSource),
+							NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(generator -> generator.settings)
+					)
+					.apply(instance, instance.stable(ZoesteriaChunkGenerator::new))
+	);
 
-	public ZoesteriaChunkGenerator(BiomeSource biomeSource) {
+	public ZoesteriaChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
 		super(biomeSource);
+		this.settings = settings;
 	}
 
-	@Override
-	protected Codec<? extends ChunkGenerator> getCodec() {
-		return null;
-	}
+	private final Holder<NoiseGeneratorSettings> settings;
 
+	// World Generation
 	@Override
-	public void carve(ChunkRegion chunkRegion, long seed, NoiseConfig noiseConfig, BiomeAccess biomeAccess, StructureAccessor structureAccessor, Chunk chunk, GenerationStep.Carver carverStep) {
-	}
-
-	@Override
-	public void buildSurface(ChunkRegion region, StructureAccessor structures, NoiseConfig noiseConfig, Chunk chunk) {
-	}
-
-	@Override
-	public void populateEntities(ChunkRegion region) {
-	}
-
-	@Override
-	public int getWorldHeight() {
-	}
-
-	@Override
-	public int getMinimumY() {
+	public int getBaseHeight(int x, int z, Heightmap.Types type, LevelHeightAccessor level, RandomState random) {
 		return 0;
 	}
 
 	@Override
-	public int getHeight(int x, int z, Heightmap.Type heightmap, HeightLimitView world, NoiseConfig noiseConfig) {
+	public NoiseColumn getBaseColumn(int x, int z, LevelHeightAccessor height, RandomState random) {
+		BlockState[] states = new BlockState[this.getGenDepth()];
+		Arrays.fill(states, Blocks.AIR.defaultBlockState());
+		return new NoiseColumn(this.getMinY(), states);
 	}
 
 	@Override
-	public VerticalBlockSample getColumnSample(int x, int z, HeightLimitView world, NoiseConfig noiseConfig) {
+	public CompletableFuture<ChunkAccess> fillFromNoise(Executor executor, Blender blender, RandomState random, StructureManager structureManager, ChunkAccess chunk) {
+		return CompletableFuture.completedFuture(chunk);
 	}
 
 	@Override
-	public void getDebugHudText(List<String> text, NoiseConfig noiseConfig, BlockPos pos) {
+	public void buildSurface(WorldGenRegion level, StructureManager structureManager, RandomState random, ChunkAccess chunk) {
 	}
 
 	@Override
-	public CompletableFuture<Chunk> populateNoise(Executor executor, Blender blender, NoiseConfig noiseConfig, StructureAccessor structureAccessor, Chunk chunk) {
+	public void spawnOriginalMobs(WorldGenRegion level) {
+		if (!this.settings.value().disableMobGeneration()) {
+			ChunkPos chunkPos = level.getCenter();
+			Holder<Biome> holder = level.getBiome(chunkPos.getWorldPosition().atY(level.getMaxBuildHeight() - 1));
+			WorldgenRandom worldgenRandom = new WorldgenRandom(new LegacyRandomSource(RandomSupport.generateUniqueSeed()));
+			worldgenRandom.setDecorationSeed(level.getSeed(), chunkPos.getMinBlockX(), chunkPos.getMinBlockZ());
+			NaturalSpawner.spawnMobsForChunkGeneration(level, holder, chunkPos, worldgenRandom);
+		}
+	}
+
+	// Unused Generation Methods
+	@Override
+	public void applyCarvers(WorldGenRegion level, long seed, RandomState random, BiomeManager biomeManager, StructureManager structureManager, ChunkAccess chunk, GenerationStep.Carving step) {
+	}
+
+	// Metadata and Serialisation
+	@Override
+	protected Codec<? extends ChunkGenerator> codec() {
+		return CODEC;
+	}
+
+
+	@Override
+	public void addDebugScreenInfo(List<String> info, RandomState random, BlockPos pos) {
+		info.add("Zoesteria Chunk Generator");
+	}
+
+	@Override
+	public int getGenDepth() {
+		return (this.settings.value()).noiseSettings().height();
 	}
 
 	@Override
 	public int getSeaLevel() {
+		return (this.settings.value()).seaLevel();
 	}
 
-
+	@Override
+	public int getMinY() {
+		return (this.settings.value()).noiseSettings().minY();
+	}
 }
