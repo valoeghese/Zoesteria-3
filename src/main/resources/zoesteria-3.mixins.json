@@ -1,13 +1,14 @@
 {
-	"required": true,
-	"package": "nz.valoeghese.zoesteria.mixin",
-	"compatibilityLevel": "JAVA_17",
-	"mixins": [
-		"BiomeSourcesMixin",
-		"ChunkGeneratorsMixin",
-		"WorldPresetsMixin"
-	],
-	"injectors": {
-		"defaultRequire": 1
+  "required": true,
+  "package": "nz.valoeghese.zoesteria.mixin",
+  "compatibilityLevel": "JAVA_17",
+  "mixins": [
+    "BiomeSourcesMixin",
+    "ChunkGeneratorsMixin",
+    "RandomStateMixin",
+    "WorldPresetsMixin"
+  ],
+  "injectors": {
+    "defaultRequire": 1
 	}
 }

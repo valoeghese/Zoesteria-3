@@ -24,20 +24,17 @@ import java.util.concurrent.Executor;
 public class ZoesteriaChunkGenerator extends ChunkGenerator {
 	public static final Codec<ZoesteriaChunkGenerator> CODEC = RecordCodecBuilder.create(
 			instance -> instance.group(
-							Codec.LONG.fieldOf("seed").forGetter(generator -> generator.seed),
 							BiomeSource.CODEC.fieldOf("biome_source").forGetter(generator -> generator.biomeSource),
 							NoiseGeneratorSettings.CODEC.fieldOf("settings").forGetter(generator -> generator.settings)
 					)
 					.apply(instance, instance.stable(ZoesteriaChunkGenerator::new))
 	);
 
-	public ZoesteriaChunkGenerator(long seed, BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
+	public ZoesteriaChunkGenerator(BiomeSource biomeSource, Holder<NoiseGeneratorSettings> settings) {
 		super(biomeSource);
-		this.seed = seed;
 		this.settings = settings;
 	}
 
-	private final long seed;
 	private final Holder<NoiseGeneratorSettings> settings;
 
 	// World Generation

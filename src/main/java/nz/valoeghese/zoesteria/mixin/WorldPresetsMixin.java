@@ -3,6 +3,7 @@ package nz.valoeghese.zoesteria.mixin;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.dimension.LevelStem;
@@ -28,12 +29,14 @@ public abstract class WorldPresetsMixin {
 
 	@Shadow @Final private HolderGetter<NoiseGeneratorSettings> noiseSettings;
 
+	@Shadow @Final private HolderGetter<Biome> biomes;
+
 	@Inject(at = @At("RETURN"), method = "bootstrap")
 	private void onBootstrap(CallbackInfo ci) {
-		BiomeSource source = new ZoesteriaBiomeSource(0);
+		BiomeSource source = new ZoesteriaBiomeSource(this.biomes);
 		Holder<NoiseGeneratorSettings> settings = this.noiseSettings.getOrThrow(NoiseGeneratorSettings.OVERWORLD);
 
-		LevelStem stem = this.makeOverworld(new ZoesteriaChunkGenerator(0, source, settings));
+		LevelStem stem = this.makeOverworld(new ZoesteriaChunkGenerator(source, settings));
 		this.registerCustomOverworldPreset(ZoesteriaWorldPresets.ZOESTERIA, stem);
 	}
 }
