@@ -1,4 +1,4 @@
-package nz.valoeghese.zoesteria.common.gen;
+package nz.valoeghese.zoesteria.datagen;
 
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;

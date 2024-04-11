@@ -1,14 +1,7 @@
 package nz.valoeghese.zoesteria;
 
 import net.fabricmc.api.ModInitializer;
-import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.level.biome.BiomeSource;
-import net.minecraft.world.level.dimension.LevelStem;
-import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
-import nz.valoeghese.zoesteria.common.gen.ZoesteriaBiomeSource;
-import nz.valoeghese.zoesteria.common.gen.ZoesteriaChunkGenerator;
-import nz.valoeghese.zoesteria.common.gen.ZoesteriaWorldPresets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

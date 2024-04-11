@@ -5,7 +5,7 @@
 	"name": "Zoesteria 3",
 	"description": "This is an example description! Tell everyone what your mod is about!",
 	"authors": [
-		"Me!"
+		"Mekal \"Valoeghese\" Covic"
 	],
 	"contact": {
 		"homepage": "https://fabricmc.net/",
@@ -19,7 +19,7 @@
 			"nz.valoeghese.zoesteria.Zoesteria3"
 		],
 		"fabric-datagen": [
-			"nz.valoeghese.zoesteria.Zoesteria3DataGenerator"
+			"nz.valoeghese.zoesteria.datagen.Zoesteria3DataGenerator"
 		]
 	},
 	"mixins": [

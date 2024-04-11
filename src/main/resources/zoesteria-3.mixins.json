@@ -5,13 +5,9 @@
   "mixins": [
     "BiomeSourcesMixin",
     "ChunkGeneratorsMixin",
-    "RandomStateMixin",
-    "WorldPresetsMixin"
+    "RandomStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
-  },
-  "client": [
-    "debug.WorldCreationUiStateMixin"
-  ]
+  }
 }
