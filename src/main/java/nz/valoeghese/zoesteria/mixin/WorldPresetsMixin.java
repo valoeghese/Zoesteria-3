@@ -10,6 +10,7 @@ import net.minecraft.world.level.dimension.LevelStem;
 import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 import net.minecraft.world.level.levelgen.presets.WorldPreset;
 import net.minecraft.world.level.levelgen.presets.WorldPresets;
+import nz.valoeghese.zoesteria.Zoesteria3;
 import nz.valoeghese.zoesteria.common.gen.ZoesteriaBiomeSource;
 import nz.valoeghese.zoesteria.common.gen.ZoesteriaChunkGenerator;
 import nz.valoeghese.zoesteria.common.gen.ZoesteriaWorldPresets;
@@ -33,6 +34,9 @@ public abstract class WorldPresetsMixin {
 
 	@Inject(at = @At("RETURN"), method = "bootstrap")
 	private void onBootstrap(CallbackInfo ci) {
+		// TODO This has to be moved; we can't mixin here.
+		Zoesteria3.LOGGER.info("Adding Zoesteria World Preset");
+
 		BiomeSource source = new ZoesteriaBiomeSource(this.biomes);
 		Holder<NoiseGeneratorSettings> settings = this.noiseSettings.getOrThrow(NoiseGeneratorSettings.OVERWORLD);
 

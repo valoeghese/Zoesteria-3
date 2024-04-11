@@ -1,7 +1,14 @@
 package nz.valoeghese.zoesteria;
 
 import net.fabricmc.api.ModInitializer;
+import net.minecraft.core.Holder;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.biome.BiomeSource;
+import net.minecraft.world.level.dimension.LevelStem;
+import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
+import nz.valoeghese.zoesteria.common.gen.ZoesteriaBiomeSource;
+import nz.valoeghese.zoesteria.common.gen.ZoesteriaChunkGenerator;
+import nz.valoeghese.zoesteria.common.gen.ZoesteriaWorldPresets;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,7 +28,5 @@ public class Zoesteria3 implements ModInitializer {
 		// This code runs as soon as Minecraft is in a mod-load-ready state.
 		// However, some things (like resources) may still be uninitialized.
 		// Proceed with mild caution.
-
-		LOGGER.info("Hello Fabric world!");
 	}
 }
