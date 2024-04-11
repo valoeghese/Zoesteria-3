@@ -2,15 +2,13 @@ package nz.valoeghese.zoesteria.mixin;
 
 import com.mojang.serialization.Codec;
 import net.minecraft.core.Registry;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.world.level.chunk.ChunkGenerator;
 import net.minecraft.world.level.chunk.ChunkGenerators;
 import nz.valoeghese.zoesteria.Zoesteria3;
-import nz.valoeghese.zoesteria.common.ZoesteriaChunkGenerator;
+import nz.valoeghese.zoesteria.common.gen.ZoesteriaChunkGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(ChunkGenerators.class)

@@ -5,7 +5,7 @@ import net.minecraft.core.Registry;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.BiomeSources;
 import nz.valoeghese.zoesteria.Zoesteria3;
-import nz.valoeghese.zoesteria.common.ZoesteriaBiomeSource;
+import nz.valoeghese.zoesteria.common.gen.ZoesteriaBiomeSource;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;

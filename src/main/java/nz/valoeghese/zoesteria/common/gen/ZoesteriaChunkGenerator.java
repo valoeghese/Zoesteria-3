@@ -1,4 +1,4 @@
-package nz.valoeghese.zoesteria.common;
+package nz.valoeghese.zoesteria.common.gen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;

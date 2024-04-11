@@ -25,6 +25,7 @@
 	"mixins": [
 		"zoesteria-3.mixins.json"
 	],
+	"accessWidener": "zoesteria.accesswidener",
 	"depends": {
 		"fabricloader": ">=0.15.9",
 		"minecraft": "~1.20.4",

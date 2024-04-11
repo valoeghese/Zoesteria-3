@@ -1,4 +1,4 @@
-package nz.valoeghese.zoesteria.common;
+package nz.valoeghese.zoesteria.common.gen;
 
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -6,8 +6,6 @@ import net.minecraft.core.Holder;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.BiomeSource;
 import net.minecraft.world.level.biome.Climate;
-import net.minecraft.world.level.biome.MultiNoiseBiomeSource;
-import net.minecraft.world.level.levelgen.NoiseGeneratorSettings;
 
 import java.util.stream.Stream;
 
@@ -21,7 +19,7 @@ public class ZoesteriaBiomeSource extends BiomeSource {
 	/**
 	 * Construct a new Zoesteria Biome Source.
 	 */
-	ZoesteriaBiomeSource(long seed) {
+	public ZoesteriaBiomeSource(long seed) {
 		this.seed = seed;
 	}
 
