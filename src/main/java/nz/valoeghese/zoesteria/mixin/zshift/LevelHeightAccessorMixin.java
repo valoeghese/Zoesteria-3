@@ -11,6 +11,10 @@ import org.spongepowered.asm.mixin.Shadow;
 public interface LevelHeightAccessorMixin {
 	@Shadow int getMaxSection();
 
+	@Shadow int getMinSection();
+
+	@Shadow int getHeight();
+
 	/**
 	 * @author valoeghese
 	 * @reason testing
@@ -19,6 +23,6 @@ public interface LevelHeightAccessorMixin {
 	default boolean isOutsideBuildHeight(BlockPos pos) {
 		ChunkPos chunkPos = new ChunkPos(pos);
 		int minY = 16 * (int) (4 * Math.sin(chunkPos.x/5.0));
-		return pos.getY() >= minY && pos.getY() <= this.getMaxSection();
+		return pos.getY() < minY || pos.getY() >= minY + this.getHeight();
 	}
 }
