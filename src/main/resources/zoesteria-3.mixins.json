@@ -5,10 +5,7 @@
   "mixins": [
     "BiomeSourcesMixin",
     "ChunkGeneratorsMixin",
-    "RandomStateMixin",
-    "yshift.ChunkAccessMixin",
-    "yshift.ChunkSerializerMixin",
-    "yshift.LevelHeightAccessorMixin"
+    "RandomStateMixin"
   ],
   "injectors": {
     "defaultRequire": 1
