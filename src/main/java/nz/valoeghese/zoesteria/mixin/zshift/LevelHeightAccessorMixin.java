@@ -9,10 +9,6 @@ import org.spongepowered.asm.mixin.Shadow;
 
 @Mixin(LevelHeightAccessor.class)
 public interface LevelHeightAccessorMixin {
-	@Shadow int getMaxSection();
-
-	@Shadow int getMinSection();
-
 	@Shadow int getHeight();
 
 	/**
