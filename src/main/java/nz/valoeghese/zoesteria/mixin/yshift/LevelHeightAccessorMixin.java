@@ -1,4 +1,4 @@
-package nz.valoeghese.zoesteria.mixin.zshift;
+package nz.valoeghese.zoesteria.mixin.yshift;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.ChunkPos;

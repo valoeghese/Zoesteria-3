@@ -6,9 +6,9 @@
     "BiomeSourcesMixin",
     "ChunkGeneratorsMixin",
     "RandomStateMixin",
-    "zshift.ChunkAccessMixin",
-    "zshift.ChunkSerializerMixin",
-    "zshift.LevelHeightAccessorMixin"
+    "yshift.ChunkAccessMixin",
+    "yshift.ChunkSerializerMixin",
+    "yshift.LevelHeightAccessorMixin"
   ],
   "injectors": {
     "defaultRequire": 1
