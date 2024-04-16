@@ -6,8 +6,9 @@
     "BiomeSourcesMixin",
     "ChunkGeneratorsMixin",
     "RandomStateMixin",
+    "height.LevelMixin",
     "height.LevelReaderMixin",
-    "height.ServerChunkCacheMixin"
+    "height.MinecraftServerMixin"
   ],
   "injectors": {
     "defaultRequire": 1
