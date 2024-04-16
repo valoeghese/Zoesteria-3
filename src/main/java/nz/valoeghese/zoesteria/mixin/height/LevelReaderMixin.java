@@ -1,11 +1,8 @@
 package nz.valoeghese.zoesteria.mixin.height;
 
-import net.minecraft.server.level.ServerChunkCache;
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.WorldGenRegion;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
-import net.minecraft.world.level.WorldGenLevel;
-import nz.valoeghese.zoesteria.common.gen.ZoesteriaChunkGenerator;
 import nz.valoeghese.zoesteria.worldgen.ZoesteriaWorldGenerator;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
@@ -25,8 +22,8 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 public interface LevelReaderMixin {
 	@Inject(at = @At("HEAD"), method = "getHeight()I", cancellable = true)
 	default void zoesteriaHeight(CallbackInfoReturnable<Integer> cir) {
-		if (this instanceof ServerLevel serverLevel) {
-			if (ZoesteriaWorldGenerator.isZoesteriaWorld(serverLevel)) {
+		if (this instanceof Level level) {
+			if (level.isClientSide || ZoesteriaWorldGenerator.isZoesteriaWorld(level)) {
 				cir.setReturnValue(ZoesteriaWorldGenerator.HEIGHT);
 			}
 		} else if (this instanceof WorldGenRegion wgr) {

@@ -20,7 +20,7 @@ public class ZoesteriaWorldGenerator {
 	public static int SEA_LEVEL = 32;
 	public static int HEIGHT = 512;
 
-	public static boolean isZoesteriaWorld(ServerLevel level) {
+	public static boolean isZoesteriaWorld(Level level) {
 		return active && level.dimension() == Level.OVERWORLD;
 	}
 }
