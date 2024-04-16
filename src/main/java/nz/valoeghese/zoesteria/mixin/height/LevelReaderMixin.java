@@ -20,15 +20,15 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
  */
 @Mixin(LevelReader.class)
 public interface LevelReaderMixin {
-	@Inject(at = @At("HEAD"), method = "getHeight()I", cancellable = true)
+	@Inject(at = @At("RETURN"), method = "getHeight()I", cancellable = true)
 	default void zoesteriaHeight(CallbackInfoReturnable<Integer> cir) {
 		if (this instanceof Level level) {
 			if (level.isClientSide || ZoesteriaWorldGenerator.isZoesteriaWorld(level)) {
-				cir.setReturnValue(ZoesteriaWorldGenerator.HEIGHT);
+				cir.setReturnValue(Math.max(cir.getReturnValue(), ZoesteriaWorldGenerator.HEIGHT));
 			}
 		} else if (this instanceof WorldGenRegion wgr) {
 			if (ZoesteriaWorldGenerator.isZoesteriaWorld(wgr.getLevel())) {
-				cir.setReturnValue(ZoesteriaWorldGenerator.HEIGHT);
+				cir.setReturnValue(Math.max(cir.getReturnValue(), ZoesteriaWorldGenerator.HEIGHT));
 			}
 		}
 	}
