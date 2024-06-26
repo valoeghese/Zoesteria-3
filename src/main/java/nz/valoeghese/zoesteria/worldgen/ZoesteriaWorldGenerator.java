@@ -1,6 +1,5 @@
 package nz.valoeghese.zoesteria.worldgen;
 
-import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.level.Level;
 
 public class ZoesteriaWorldGenerator {
